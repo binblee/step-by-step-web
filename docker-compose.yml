@@ -1,0 +1,18 @@
+ssweb:
+  image: ssweb:latest
+  ports:
+    - '8080:8080'
+  restart: always
+  links:
+    - 'db:db'
+  labels:
+    aliyun.routing.port_80: http://ssweb
+    aliyun.scale: '3'
+db:
+  image: mysql:5.7
+  environment:
+    MYSQL_ROOT_PASSWORD: secret
+    MYSQL_DATABASE: demodb
+  restart: always
+  labels:
+    aliyun.logs: /var/log/mysql
